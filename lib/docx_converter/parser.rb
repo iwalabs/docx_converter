@@ -56,6 +56,7 @@ module DocxConverter
     def unzip_read(zip_path)
       file = @zipfile.find_entry(zip_path)
       contents = ""
+      return contents if file.nil?
       file.get_input_stream do |f|
         contents = f.read
       end
