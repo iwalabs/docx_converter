@@ -42,7 +42,7 @@ module DocxConverter
       
       @relationships_hash = parse_relationships(relationships) unless relationships.nil? || relationships.blank?
 
-      footnote_definitions = parse_footnotes(footnotes) unless relationships.nil? || relationships.blank?
+      footnote_definitions = parse_footnotes(footnotes) unless footnotes.nil? || footnotes.blank?
       output_content = parse_content(content.elements.first,0)
       
       return {
