@@ -40,9 +40,9 @@ module DocxConverter
       footnotes = Nokogiri::XML(footnotes_xml)
       relationships = Nokogiri::XML(relationships_xml)
       
-      @relationships_hash = parse_relationships(relationships)
+      @relationships_hash = parse_relationships(relationships) unless relationships.nil? || relationships.blank?
 
-      footnote_definitions = parse_footnotes(footnotes)
+      footnote_definitions = parse_footnotes(footnotes) unless relationships.nil? || relationships.blank?
       output_content = parse_content(content.elements.first,0)
       
       return {
