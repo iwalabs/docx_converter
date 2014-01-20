@@ -28,7 +28,7 @@ module DocxConverter
       
       @relationships_hash = {}
       
-      @zipfile = Zip::ZipFile.new(@docx_filepath)
+      @zipfile = Zip::File.new(@docx_filepath)
     end
     
     def parse
