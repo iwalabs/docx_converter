@@ -33,12 +33,12 @@ module DocxConverter
     
     def parse
       document_xml = unzip_read("word/document.xml")
-      footnotes_xml = unzip_read("word/footnotes.xml") unless footnotes_xml.blank?
-      relationships_xml = unzip_read("word/_rels/document.xml.rels") unless relationships_xml.blank?
+      footnotes_xml = unzip_read("word/footnotes.xml") 
+      relationships_xml = unzip_read("word/_rels/document.xml.rels")
       
       content = Nokogiri::XML(document_xml)
-      footnotes = Nokogiri::XML(footnotes_xml)
-      relationships = Nokogiri::XML(relationships_xml)
+      footnotes = Nokogiri::XML(footnotes_xml) unless footnotes_xml.blank?
+      relationships = Nokogiri::XML(relationships_xml) unless relationships_xml.blank?
       
       @relationships_hash = parse_relationships(relationships) unless relationships.nil? || relationships.blank?
 
