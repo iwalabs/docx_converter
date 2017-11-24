@@ -164,22 +164,26 @@ module DocxConverter
           when "rPr"
             # This inline node is formatted. The first child always specifies the formatting of the subsequent 't' (text) node.
             format_node = first_child.children.first
-            case format_node.name
-            when "b"
-              # This is regular (non-style) bold
-              prefix = postfix = "**"
-            when "i"
-              # This is regular (non-style) italic
-              prefix = postfix = "*"
-            when "rStyle"
-              # This is a reference to one of Word's style names
-              case format_node.attributes["val"].value
-              when "Strong"
-                # "Strong" is a predefined Word style
-                # This node is missing the xml:space="preserve" attribute, so we need to set the spaces ourselves.
-                prefix = " **"
-                postfix = "** "
+            if format_node
+              case format_node.name
+              when "b"
+                # This is regular (non-style) bold
+                prefix = postfix = "**"
+              when "i"
+                # This is regular (non-style) italic
+                prefix = postfix = "*"
+              when "rStyle"
+                # This is a reference to one of Word's style names
+                case format_node.attributes["val"].value
+                when "Strong"
+                  # "Strong" is a predefined Word style
+                  # This node is missing the xml:space="preserve" attribute, so we need to set the spaces ourselves.
+                  prefix = " **"
+                  postfix = "** "
+                end
               end
+            else
+              prefix = postfix = ""
             end
             add = prefix + parse_content(nd,depth) + postfix
           when "br"
