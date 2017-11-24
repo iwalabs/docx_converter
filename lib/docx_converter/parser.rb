@@ -93,9 +93,11 @@ module DocxConverter
     def parse_relationships(relationships)
       output = {}
       relationships.children.first.children.each do |rel|
-        rel_id = rel.attributes["Id"].value
-        rel_target = rel.attributes["Target"].value
-        output[rel_id] = rel_target
+        if (rel.attributes["Id"] && rel.attributes["Target"])
+          rel_id = rel.attributes["Id"].value
+          rel_target = rel.attributes["Target"].value
+          output[rel_id] = rel_target
+        end
       end
       return output
     end
